@@ -9,7 +9,7 @@ sudo pacman -Syu --noconfirm
 
 # Instalando codecs multimídia
 echo "Instalando codecs..."
-sudo pacman -S --needed --noconfirm gstreamer gst-plugins-base gst-plugins-libav gst-plugins-good gst-plugins-bad gst-plugins-ugly ffmpeg
+sudo pacman -S --needed --noconfirm gstreamer gst-plugins-base gst-libav gst-plugins-good gst-plugins-bad gst-plugins-ugly ffmpeg
 
 # Instalando pacotes essenciais do sistema
 echo "Instalando pacotes essenciais..."
@@ -21,7 +21,7 @@ sudo pacman -S --needed --noconfirm \
 # Instalando fontes
 echo "Instalando fontes..."
 sudo pacman -S --needed --noconfirm \
-  noto-fonts noto-fonts-emoji noto-fonts-cjk noto-fonts-extra noto-fonts-compat ttf-noto-nerd
+  noto-fonts noto-fonts-emoji noto-fonts-cjk noto-fonts-extra ttf-noto-nerd
 
 # Instalando dependências
 echo "Instalando ferramentas básicas..."
