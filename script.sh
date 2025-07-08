@@ -16,7 +16,7 @@ echo "Instalando pacotes essenciais..."
 sudo pacman -S --needed --noconfirm \
   qt5-wayland qt6-wayland xorg-xwayland \
   xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk \
-  polkit-kde-agent gnome-keyring xdg-user-dirs-gtk uwsm
+  polkit-kde-agent gnome-keyring xdg-user-dirs-gtk uwsm sddm
 
 # Instalando fontes
 echo "Instalando fontes..."
