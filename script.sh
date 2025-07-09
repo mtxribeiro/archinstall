@@ -10,18 +10,20 @@ case "$kernel" in
   *zen*) pkg="linux-zen-headers" ;;
   *hardened*) pkg="linux-hardened-headers" ;;
   *) pkg="linux-headers" ;;
-esac
+esac || true
 sudo pacman -S --noconfirm --needed $pkg
 
 gpu=$(lspci | grep -E "VGA|3D" | awk -F: '{print $3}' | tr '[:upper:]' '[:lower:]')
 
 if echo "$gpu" | grep -q "nvidia"; then
-  sudo pacman -S --noconfirm --needed nvidia-dkms nvidia-utils lib32-nvidia-utils
+  sudo pacman -S --noconfirm --needed opencl-nvidia nvidia-dkms nvidia-utils lib32-nvidia-utils
 elif echo "$gpu" | grep -q "amd"; then
-  sudo pacman -S --noconfirm --needed xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon libva-mesa-driver
+  sudo pacman -S --noconfirm --needed opencl-mesa xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon libva-mesa-driver
 elif echo "$gpu" | grep -q "intel"; then
-  sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel libva-intel-driver
+  sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel libva-intel-driver intel-media-driver
 fi
+
+sudo pacman -S --noconfirm --needed libva libva-utils
 
 sudo pacman -S --needed --noconfirm gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav
 
@@ -43,5 +45,7 @@ if ! command -v yay &> /dev/null; then
 fi
 
 xdg-user-dirs-update
+
+sudo pacman -Scc --noconfirm
 
 echo -e "\n\033[1;32mInstalação concluída. Por favor, reinicie o sistema.\033[0m"
