@@ -31,16 +31,8 @@ sudo pacman -S --needed --noconfirm qt5-wayland qt6-wayland xorg-xwayland xdg-de
 
 sudo pacman -S --needed --noconfirm noto-fonts noto-fonts-emoji noto-fonts-cjk noto-fonts-extra ttf-noto-nerd
 
-sudo pacman -S --needed --noconfirm ffmpeg git base-devel curl wget zip unzip
+sudo pacman -S --needed --noconfirm ffmpeg git base-devel curl wget zip unzip mpv imv
 
 cd /tmp && git clone https://aur.archlinux.org/yay && cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay
-
-sudo pacman -S --needed --noconfirm hyprland hyprpaper hyprlock
-
-sudo pacman -S --needed --noconfirm rofi-wayland kitty fastfetch neovim waybar mpv nwg-bar btop tmux rofimoji
-
-sudo pacman -S --needed --noconfirm breeze breeze-gtk breeze5 nwg-look papirus-icon-theme
-
-yay -S --needed --noconfirm --norebuild --noredownload brave-bin qview asdf-vm hyprshot qt5ct-kde qt6ct-kde
 
 xdg-user-dirs-update
