@@ -36,3 +36,5 @@ sudo pacman -S --needed --noconfirm ffmpeg xdg-utils git base-devel curl wget zi
 cd /tmp && git clone https://aur.archlinux.org/yay && cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay
 
 xdg-user-dirs-update
+
+echo -e "\nInstalação concluída. por favor, reinicie o sistema."
