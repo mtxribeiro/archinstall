@@ -27,7 +27,7 @@ sudo pacman -S --needed --noconfirm gstreamer gst-plugins-base gst-plugins-good 
 
 sudo pacman -S --needed --noconfirm wireplumber pipewire pipewire-alsa pipewire-jack pipewire-pulse pavucontrol
 
-sudo pacman -S --needed --noconfirm qt5-wayland qt6-wayland xorg-xwayland xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk polkit-kde-agent gnome-keyring xdg-user-dirs
+sudo pacman -S --needed --noconfirm qt5-wayland qt6-wayland xorg-xwayland xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk polkit-kde-agent gnome-keyring xdg-user-dirs xdg-user-dirs-gtk
 
 sudo pacman -S --needed --noconfirm noto-fonts noto-fonts-emoji noto-fonts-cjk noto-fonts-extra ttf-noto-nerd
 
