@@ -1,59 +1,46 @@
 #!/bin/bash
-set -e  # Encerra o script em caso de erro
 
-echo "Iniciando pós-instalação para Arch + Hyprland..."
+set -e
 
-# Atualizando o sistema
-echo "Atualizando pacotes..."
 sudo pacman -Syu --noconfirm
 
-# Instalando codecs multimídia
-echo "Instalando codecs..."
-sudo pacman -S --needed --noconfirm gstreamer gst-plugins-base gst-libav gst-plugins-good gst-plugins-bad gst-plugins-ugly ffmpeg
+kernel=$(uname -r)
+case "$kernel" in
+  *lts*) pkg="linux-lts-headers" ;;
+  *zen*) pkg="linux-zen-headers" ;;
+  *hardened*) pkg="linux-hardened-headers" ;;
+  *) pkg="linux-headers" ;;
+esac
+sudo pacman -S --noconfirm --needed $pkg
 
-# Instalando pacotes essenciais do sistema
-echo "Instalando pacotes essenciais..."
-sudo pacman -S --needed --noconfirm \
-  qt5-wayland qt6-wayland xorg-xwayland \
-  xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk \
-  polkit-kde-agent gnome-keyring xdg-user-dirs-gtk uwsm sddm
+gpu=$(lspci | grep -E "VGA|3D" | awk -F: '{print $3}' | tr '[:upper:]' '[:lower:]')
 
-# Instalando fontes
-echo "Instalando fontes..."
-sudo pacman -S --needed --noconfirm \
-  noto-fonts noto-fonts-emoji noto-fonts-cjk noto-fonts-extra ttf-noto-nerd
+if echo "$gpu" | grep -q "nvidia"; then
+  sudo pacman -S --noconfirm --needed nvidia-dkms nvidia-utils lib32-nvidia-utils
+elif echo "$gpu" | grep -q "amd"; then
+  sudo pacman -S --noconfirm --needed xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon libva-mesa-driver
+elif echo "$gpu" | grep -q "intel"; then
+  sudo pacman -S --noconfirm --needed xf86-video-intel mesa lib32-mesa vulkan-intel lib32-vulkan-intel libva-intel-driver
+fi
 
-# Instalando dependências
-echo "Instalando ferramentas básicas..."
-sudo pacman -S --needed --noconfirm git base-devel curl wget unzip unrar
+sudo pacman -S --needed --noconfirm gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav
 
-# Instalando yay (AUR helper)
-echo "Instalando yay..."
-cd /tmp && git clone https://aur.archlinux.org/yay && cd yay
-makepkg -si --noconfirm
-cd .. && rm -rf yay
+sudo pacman -S --needed --noconfirm wireplumber pipewire pipewire-alsa pipewire-jack pipewire-pulse pavucontrol
 
-# Instalando Hyprland e complementos
-echo "Instalando Hyprland e pacotes relacionados..."
+sudo pacman -S --needed --noconfirm qt5-wayland qt6-wayland xorg-xwayland xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk polkit-kde-agent gnome-keyring xdg-user-dirs
+
+sudo pacman -S --needed --noconfirm noto-fonts noto-fonts-emoji noto-fonts-cjk noto-fonts-extra ttf-noto-nerd
+
+sudo pacman -S --needed --noconfirm ffmpeg git base-devel curl wget zip unzip
+
+cd /tmp && git clone https://aur.archlinux.org/yay && cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay
+
 sudo pacman -S --needed --noconfirm hyprland hyprpaper hyprlock
-yay -S --needed --noconfirm --norebuild --noredownload hyprshot
 
-# Instalando utilitários úteis
-echo "Instalando utilitários..."
-sudo pacman -S --needed --noconfirm \
-  pavucontrol rofi-wayland kitty fastfetch neovim waybar mpv nwg-bar btop tmux rofimoji
+sudo pacman -S --needed --noconfirm rofi-wayland kitty fastfetch neovim waybar mpv nwg-bar btop tmux rofimoji
 
-# Instalando temas e personalização
-echo "Instalando temas e ícones..."
 sudo pacman -S --needed --noconfirm breeze breeze-gtk breeze5 nwg-look papirus-icon-theme
-yay -S --needed --noconfirm --norebuild --noredownload qt5ct-kde qt6ct-kde
 
-# Instalando pacotes do AUR
-echo "Instalando pacotes extras do AUR..."
-yay -S --needed --noconfirm --norebuild --noredownload brave-bin qview asdf-vm
+yay -S --needed --noconfirm --norebuild --noredownload brave-bin qview asdf-vm hyprshot qt5ct-kde qt6ct-kde
 
-# Ajustes finais
-echo "Atualizando diretórios padrão..."
 xdg-user-dirs-update
-
-echo "Finalizado. Reinicie o sistema para aplicar tudo."
