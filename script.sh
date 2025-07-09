@@ -20,7 +20,7 @@ if echo "$gpu" | grep -q "nvidia"; then
 elif echo "$gpu" | grep -q "amd"; then
   sudo pacman -S --noconfirm --needed xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon libva-mesa-driver
 elif echo "$gpu" | grep -q "intel"; then
-  sudo pacman -S --noconfirm --needed xf86-video-intel mesa lib32-mesa vulkan-intel lib32-vulkan-intel libva-intel-driver
+  sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel libva-intel-driver
 fi
 
 sudo pacman -S --needed --noconfirm gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav
