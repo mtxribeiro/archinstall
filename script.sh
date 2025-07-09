@@ -31,7 +31,7 @@ sudo pacman -S --needed --noconfirm gtk3 gtk4 qt5-wayland qt6-wayland xorg-xwayl
 
 sudo pacman -S --needed --noconfirm noto-fonts noto-fonts-emoji noto-fonts-cjk noto-fonts-extra ttf-noto-nerd
 
-sudo pacman -S --needed --noconfirm ffmpeg git base-devel curl wget zip unzip mpv imv
+sudo pacman -S --needed --noconfirm ffmpeg xdg-utils git base-devel curl wget zip unzip mpv imv
 
 cd /tmp && git clone https://aur.archlinux.org/yay && cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay
 
