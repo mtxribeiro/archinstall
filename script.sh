@@ -33,7 +33,14 @@ sudo pacman -S --needed --noconfirm noto-fonts noto-fonts-emoji noto-fonts-cjk n
 
 sudo pacman -S --needed --noconfirm ffmpeg xdg-utils git base-devel curl wget zip unzip mpv imv
 
-cd /tmp && git clone https://aur.archlinux.org/yay && cd yay && makepkg -si --noconfirm && cd ~/ && rm -rf yay
+if ! command -v yay &> /dev/null; then
+    cd /tmp
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si --noconfirm
+    cd ~
+    rm -rf /tmp/yay
+fi
 
 xdg-user-dirs-update
 
