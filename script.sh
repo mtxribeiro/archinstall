@@ -44,4 +44,4 @@ fi
 
 xdg-user-dirs-update
 
-echo -e "\nInstalação concluída. por favor, reinicie o sistema."
+echo -e "\n\033[1;32mInstalação concluída. Por favor, reinicie o sistema.\033[0m"
