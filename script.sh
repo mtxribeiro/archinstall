@@ -1,9 +1,6 @@
 #!/bin/bash
-
 set -e
-
 sudo pacman -Syu --noconfirm
-
 kernel=$(uname -r)
 case "$kernel" in
   *lts*) pkg="linux-lts-headers" ;;
@@ -12,9 +9,7 @@ case "$kernel" in
   *) pkg="linux-headers" ;;
 esac
 sudo pacman -S --noconfirm --needed $pkg
-
 gpu=$(lspci | grep -E "VGA|3D" | awk -F: '{print $3}' | tr '[:upper:]' '[:lower:]')
-
 if echo "$gpu" | grep -q "nvidia"; then
   sudo pacman -S --noconfirm --needed opencl-nvidia nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
 elif echo "$gpu" | grep -q "amd"; then
@@ -22,19 +17,12 @@ elif echo "$gpu" | grep -q "amd"; then
 elif echo "$gpu" | grep -q "intel"; then
   sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel libva-intel-driver intel-media-driver
 fi
-
 sudo pacman -S --noconfirm --needed libva libva-utils vulkan-icd-loader lib32-vulkan-icd-loader vulkan-validation-layers mesa-vdpau lib32-mesa-vdpau egl-wayland
-
 sudo pacman -S --needed --noconfirm gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav
-
 sudo pacman -S --needed --noconfirm wireplumber pipewire pipewire-alsa pipewire-jack pipewire-pulse pavucontrol
-
 sudo pacman -S --needed --noconfirm gtk3 gtk4 qt5-wayland qt6-wayland xorg-xwayland xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk polkit-kde-agent gnome-keyring xdg-user-dirs xdg-user-dirs-gtk
-
 sudo pacman -S --needed --noconfirm noto-fonts noto-fonts-emoji noto-fonts-cjk noto-fonts-extra ttf-noto-nerd
-
 sudo pacman -S --needed --noconfirm ffmpeg xdg-utils git base-devel curl wget zip unzip mpv imv
-
 if ! command -v yay &> /dev/null; then
     cd /tmp
     git clone https://aur.archlinux.org/yay.git
@@ -43,11 +31,7 @@ if ! command -v yay &> /dev/null; then
     cd ~
     rm -rf /tmp/yay
 fi
-
 xdg-user-dirs-update
-
 sudo pacman -Scc --noconfirm
-
 cd "$HOME"
-
 echo -e "\n\033[1;32mInstalação concluída. Por favor, reinicie o sistema.\033[0m"
