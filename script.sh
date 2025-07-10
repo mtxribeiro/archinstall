@@ -4,9 +4,10 @@ sudo pacman -S --needed --noconfirm \
 gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav \
 wireplumber pipewire pipewire-alsa pipewire-jack pipewire-pulse pavucontrol \
 gtk3 gtk4 qt5-wayland qt6-wayland xorg-xwayland \
-xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk polkit-kde-agent gnome-keyring xdg-user-dirs xdg-user-dirs-gtk \
+xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-utils polkit-kde-agent gnome-keyring \
+xdg-user-dirs xdg-user-dirs-gtk \
 noto-fonts noto-fonts-emoji noto-fonts-cjk noto-fonts-extra ttf-noto-nerd \
-ffmpeg git base-devel xdg-utils curl wget zip unzip mpv imv
+ffmpeg git base-devel curl wget zip unzip mpv imv
 command -v yay &>/dev/null || (cd /tmp && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm && cd ~ && rm -rf /tmp/yay)
 xdg-user-dirs-update
 sudo pacman -Scc --noconfirm
