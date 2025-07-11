@@ -10,6 +10,7 @@ noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-firacode-nerd ttf-jetbrains-mono-
 ffmpeg git base-devel curl wget zip unzip mpv imv
 command -v yay &>/dev/null || (cd /tmp && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm && cd ~ && rm -rf /tmp/yay)
 xdg-user-dirs-update
+fc-cache -rv
 sudo pacman -Scc --noconfirm
 cd "$HOME"
 echo -e "\n\033[1;32mInstalação concluída. Por favor, reinicie o sistema.\033[0m"
